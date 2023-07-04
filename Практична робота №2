@@ -1,0 +1,74 @@
+#include <stdio.h>
+#include <windows.h>
+#include <conio.h>
+
+void NSK();
+
+int main()
+{
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+
+    NSK(); // Виклик функції NSK()
+
+    return 0;
+}
+
+void NSK()
+{
+    int N, *arr, max = 0;
+    int check_1 = 0;
+
+    // Перевірка, чи не є введене число меншим за 2 та більшим за 20
+    do{
+        check_1 = 0;
+        printf("\nВведіть кількість чисел: ");
+        scanf("%d", &N);
+        if(N < 2 || N > 20){
+            check_1 = 1;
+            printf("\nКількість чисел не може бути менше 2 та більше 20\n");
+        }
+    } while (check_1 == 1);
+
+    arr = (int *)calloc(N, sizeof(int)); // Виділення пам'яті для масива
+
+    // Перевірка, чи була виділена пам'ять для масиву 
+    if(arr == NULL){
+        printf("\nПомилка виділення пам'яті!");
+    }
+
+    int i = 0;
+
+    // Ведення чисел, для знаходження НСК
+    for (i = 0; i < N; i++){
+        printf("\nВведіть число №%d: ", i+1);
+        scanf("%d", &arr[i]);
+        if(arr[i] > max){
+            max = arr[i];
+        }
+    }
+
+    int check_2 = 0;
+    int count = max;
+
+    i = 0;
+
+    // Цикл знаходження НСК
+    do{
+        if((count % arr[i]) == 0){
+            check_2++;
+            i++;
+        }else{
+            count += max;
+            i = 0;
+            check_2 = 0;
+        }
+    } while (check_2 != N);
+
+    printf("\nНСК вписаних чисел: %d", count);
+
+    // Звільнення пам'яті
+    free(arr);
+
+    getch(); // Затримка виконання програми до натискання клавіші
+}
