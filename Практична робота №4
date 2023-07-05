@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <windows.h>
+#include <conio.h>
+#include <math.h>
+
+void result();
+
+int main()
+{
+    SetConsoleCP(1251);  // Налаштовує кодування вводу консолі на 1251 (українське кодування)
+    SetConsoleOutputCP(1251);  // Налаштовує кодування виводу консолі на 1251 (українське кодування)
+
+    result();  // Виклик функції result()
+
+    return 0;
+}
+
+void result()
+{
+    int n = 0;
+    int check = 0;
+
+    // Перевірка, чи не є введене число меншим за 1 та більшим за 150
+    do{
+        check = 0;
+        printf("\nВведіть натуральне число n: ");
+        scanf("%d", &n);
+        if(n < 1 || n > 150){
+            check = 1;
+            printf("\nЧисло n не може бути меншим за 1 та більшим за 150\n");
+        }
+    } while (check == 1);
+
+    int count = 0;
+
+    // Основний цикл обчислення
+    for (int m = 1; m < n + 1; m++){
+        if(n % m == n / m){
+            count++;
+        }
+    }
+
+    printf("\nКількість рівних дільників числа %d: %d", n, count);
+
+    getch();  // Затримка виконання програми до натискання клавіші
+}
