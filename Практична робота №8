@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <windows.h>
+#include <conio.h>
+#include <math.h>
+
+void Word();
+
+int main()
+{
+    SetConsoleCP(1251);  // Налаштовує кодування вводу консолі на 1251 (українське кодування)
+    SetConsoleOutputCP(1251);  // Налаштовує кодування виводу консолі на 1251 (українське кодування)
+
+    Word();  // Виклик функції Word()
+
+    return 0;
+}
+
+void Word()
+{
+    char word[15];
+
+    printf("\nВведіть слово: ");
+    scanf("%s", word);
+
+    int length = strlen(word);
+    int anagrams = 1;
+
+    // Початок логіки програми
+    for (int i = 1; i <= length; i++){
+        anagrams *= i;
+    }
+
+    for (char c = 'A'; c <= 'Z'; c++){
+        int count = 0;
+        
+        for (int i = 0; i < length; i++){
+            if (word[i] == c || word[i] == c + ('a' - 'A')){
+                count++;
+            }
+        }
+
+        int f = 1;
+
+        for (int i = 1; i <= count; i++){
+            f *= i;
+        }
+
+        anagrams /= f;
+    }
+
+    printf("\nКількість анаграм: %d\n", anagrams);
+
+    getch();  // Затримка виконання програми до натискання клавіші
+}
